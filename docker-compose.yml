@@ -1,0 +1,9 @@
+services:
+  ppt-infra:
+    build: .
+    ports:
+      - "5000:5000"        # expose Flask
+    env_file:
+      - .env               # clé OpenAI, etc.
+    volumes:
+      - .:/app             # hot reload en Codespaces
