@@ -2,33 +2,132 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- important pour que le CSS fonctionne sur mobile -->
   <title>Chatbot & DALL·E</title>
+
   <style>
-    body { font-family: Arial; margin: 20px; }
-    input, button { padding: 8px; font-size: 16px; }
-    #chatbox { margin-top: 20px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
-    .user { color: blue; }
-    .bot { color: green; }
-    img { max-width: 100%; margin-top: 10px; }
+    body {
+      font-family: Arial;
+      margin: 20px;
+    }
+
+    input,
+    button {
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    #chatbox {
+      margin-top: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .user {
+      color: blue;
+    }
+
+    .bot {
+      color: green;
+    }
+
+    img {
+      max-width: 100%;
+      margin-top: 10px;
+    }
+
+    /* Conteneur global centré */
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* centre verticalement */
+      align-items: center;     /* centre horizontalement */
+      width: 100%;
+      min-height: 100vh;       /* prend toute la hauteur de l'écran */
+    }
+
+    /* Centrer horizontalement les formulaires */
+    .line-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    /* Conteneur des messages */
+.message {
+  display: flex;
+  margin: 5px 0;
+}
+
+/* Message utilisateur à droite */
+.user-message {
+  justify-content: flex-end;
+}
+
+.user-message .bubble {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+/* Message bot à gauche */
+.bot-message {
+  justify-content: flex-start;
+}
+
+.bot-message .bubble {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Style des bulles */
+.bubble {
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+.timestamp {
+  display: block;
+  font-size: 0.7em;
+  color: gray;
+  margin-top: 5px;
+  text-align: right;
+}
+
   </style>
 </head>
+
 <body>
-  <h1>Chatbot & DALL·E</h1>
 
-  <!-- Zone pour chatter -->
-  <div>
-    <input type="text" id="msg" placeholder="Tapez votre message">
-    <button onclick="sendMessage()">Envoyer</button>
-  </div>
-  <div id="chatbox"></div>
+  <div class="form-container">
 
-  <!-- Zone pour générer des images -->
-  <div style="margin-top:20px;">
-    <input type="text" id="prompt" placeholder="Prompt pour DALL·E">
-    <button onclick="generateImage()">Générer Image</button>
+    <h1>Chatbot & DALL·E</h1>
+
+    <!-- Zone pour chatter -->
+    <div id="chatbox"></div>
+
+    <div class="line-form">
+      <input type="text" id="msg" placeholder="Tapez votre message">
+      <button onclick="sendMessage()">Envoyer</button>
+    </div>
+
+    <!-- Zone pour générer des images -->
+    <div class="line-form" style="margin-top:20px;">
+      <input type="text" id="prompt" placeholder="Prompt pour DALL·E">
+      <button onclick="generateImage()">Générer Image</button>
+    </div>
+
+    <div id="imageBox"></div>
+
   </div>
-  <div id="imageBox"></div>
 
   <script src="main.js"></script>
+
 </body>
 </html>

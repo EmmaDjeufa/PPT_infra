@@ -49,13 +49,11 @@ def image():
     data = request.get_json()
     prompt = data.get("prompt", "")
 
-    try:
-        url = generate_image(prompt)
-        return jsonify({"image_url": url})
+    
+    result = generate_image(prompt)
 
-    except Exception as e:
-        # On renvoie une erreur lisible au frontend
-        return jsonify({"error": str(e)}), 400
+    # Toujours renvoyer 200, même en cas d'erreur "logique"
+    return jsonify(result), 200
 
 # ---------------------------
 # LANCEMENT LOCAL
