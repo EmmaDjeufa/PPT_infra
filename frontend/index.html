@@ -2,138 +2,148 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- important pour que le CSS fonctionne sur mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chatbot & DALL·E</title>
-
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       margin: 20px;
+      background-color: #f9f9f9;
     }
 
-    input,
-    button {
-      padding: 8px;
-      font-size: 16px;
+    h1 {
+      text-align: center;
     }
 
-    #chatbox {
+    /* Conteneur principal */
+    .main-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap; /* Responsive : passe en vertical sur petit écran */
       margin-top: 20px;
+    }
+
+    /* Sections Chat et Image */
+    .section {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      flex: 1 1 400px; /* flexible mais minimum 400px */
+      min-width: 300px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .section h2 {
+      margin-top: 0;
+    }
+
+    /* Chatbox */
+    #chatbox {
       max-height: 400px;
       overflow-y: auto;
-      border: 1px solid #ccc;
+      border: 1px solid #aaa;
       padding: 10px;
-      width: 100%;
-      max-width: 500px;
-    }
-
-    .user {
-      color: blue;
-    }
-
-    .bot {
-      color: green;
-    }
-
-    img {
-      max-width: 100%;
       margin-top: 10px;
     }
 
-    /* Conteneur global centré */
-    .form-container {
+    /* Messages */
+    .message {
       display: flex;
-      flex-direction: column;
-      justify-content: center; /* centre verticalement */
-      align-items: center;     /* centre horizontalement */
-      width: 100%;
-      min-height: 100vh;       /* prend toute la hauteur de l'écran */
+      margin: 5px 0;
     }
 
-    /* Centrer horizontalement les formulaires */
+    .user-message {
+      justify-content: flex-end;
+    }
+
+    .user-message .bubble {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+
+    .bot-message {
+      justify-content: flex-start;
+    }
+
+    .bot-message .bubble {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .bubble {
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+
+    /* Inputs & buttons */
     .line-form {
       display: flex;
-      justify-content: center;
-      align-items: center;
       gap: 10px;
       margin-top: 10px;
     }
 
-    /* Conteneur des messages */
-.message {
-  display: flex;
-  margin: 5px 0;
-}
+    .line-form input {
+      flex: 1;
+      padding: 8px;
+      font-size: 16px;
+    }
 
-/* Message utilisateur à droite */
-.user-message {
-  justify-content: flex-end;
-}
+    .line-form button {
+      padding: 8px 12px;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-.user-message .bubble {
-  background-color: #cce5ff;
-  color: #004085;
-}
+    /* Images */
+    #imageBox img {
+      max-width: 100%;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
 
-/* Message bot à gauche */
-.bot-message {
-  justify-content: flex-start;
-}
-
-.bot-message .bubble {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-/* Style des bulles */
-.bubble {
-  padding: 10px 15px;
-  border-radius: 15px;
-  max-width: 70%;
-  word-wrap: break-word;
-}
-.timestamp {
-  display: block;
-  font-size: 0.7em;
-  color: gray;
-  margin-top: 5px;
-  text-align: right;
-}
+    p.description {
+      color: gray;
+      font-size: 0.9em;
+      text-align: center;
+    }
 
   </style>
 </head>
-
 <body>
 
-  <div class="form-container">
+  <h1>Chatbot & DALL·E</h1>
 
-    <h1>Chatbot & DALL·E</h1>
+  <div class="main-container">
 
-    <h2>Chatez avec le bot par ici :</P></h2>
+    <!-- Chat Section -->
+    <div class="section">
+      <h2>💬 Chat avec le bot</h2>
+      <p class="description">Posez une question au chatbot et obtenez une réponse instantanée.</p>
 
-    <!-- Zone pour chatter -->
-    <div id="chatbox"></div>
-    <p style="max-width:500px; text-align:center; color:gray;">
-        💬 Posez une question à notre chatbot ou saisissez un prompt pour générer une image avec DALL·E.
-    </p>
+      <div id="chatbox"></div>
 
-    <div class="line-form">
-      <input type="text" id="msg" placeholder="Ex : Quel temps fait-il à Paris ?">
-      <button onclick="sendMessage()">Envoyer</button>
+      <div class="line-form">
+        <input type="text" id="msg" placeholder="Ex : Quel temps fait-il à Paris ?">
+        <button onclick="sendMessage()">Envoyer</button>
+      </div>
     </div>
 
-    <!-- Zone pour générer des images -->
-     <h2>Vour pouvez générer ici des images avec DALL·E</h2>
-     <p style="max-width:500px; text-align:center; color:gray;">
-        💬 Vous pouvez ici décrire la façon dont vous voulez que votre image soit crée
-    </p>
+    <!-- Image Generation Section -->
+    <div class="section">
+      <h2>🎨 Génération d’images avec DALL·E</h2>
+      <p class="description">Décrivez l’image que vous souhaitez générer.</p>
 
-    <div class="line-form" style="margin-top:20px;">
-      <input type="text" id="prompt" placeholder="Ex : Un chat en costume de pirate sur un bateau">
-      <button onclick="generateImage()">Générer Image</button>
+      <div class="line-form">
+        <input type="text" id="prompt" placeholder="Ex : Un chat en costume de pirate sur un bateau">
+        <button onclick="generateImage()">Générer Image</button>
+      </div>
+
+      <div id="imageBox"></div>
     </div>
-
-    <div id="imageBox"></div>
 
   </div>
 
