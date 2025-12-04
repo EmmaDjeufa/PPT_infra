@@ -33,7 +33,7 @@ def chat():
     data = request.get_json()
     message = data.get("message", "")
 
-    reply = ask_chatbot(message)
+    reply = ask_chat(message)
     return jsonify({"reply": reply})
 
 
@@ -49,9 +49,13 @@ def image():
     data = request.get_json()
     prompt = data.get("prompt", "")
 
-    url = generate_image(prompt)
-    return jsonify({"image_url": url})
+    try:
+        url = generate_image(prompt)
+        return jsonify({"image_url": url})
 
+    except Exception as e:
+        # On renvoie une erreur lisible au frontend
+        return jsonify({"error": str(e)}), 400
 
 # ---------------------------
 # LANCEMENT LOCAL

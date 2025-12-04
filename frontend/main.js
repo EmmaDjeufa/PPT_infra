@@ -41,6 +41,15 @@ async function generateImage() {
             body: JSON.stringify({ prompt })
         });
         const data = await res.json();
+
+         if (data.error) {
+            // On affiche un message très clair
+            imageBox.innerHTML = `
+                ❌ <strong>Erreur :</strong> ${data.error}<br><br>
+                Veuillez ajouter un moyen de paiement dans votre compte OpenAI pour réactiver la génération d’images.
+            `;
+            return;
+        }
         imageBox.innerHTML = `<img src="${data.image_url}" alt="Image générée">`;
     } catch (e) {
         imageBox.innerHTML = `Erreur: ${e}`;
