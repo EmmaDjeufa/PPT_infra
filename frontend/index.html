@@ -109,17 +109,27 @@
 
     <h1>Chatbot & DALL·E</h1>
 
+    <h2>Chatez avec le bot par ici :</P></h2>
+
     <!-- Zone pour chatter -->
     <div id="chatbox"></div>
+    <p style="max-width:500px; text-align:center; color:gray;">
+        💬 Posez une question à notre chatbot ou saisissez un prompt pour générer une image avec DALL·E.
+    </p>
 
     <div class="line-form">
-      <input type="text" id="msg" placeholder="Tapez votre message">
+      <input type="text" id="msg" placeholder="Ex : Quel temps fait-il à Paris ?">
       <button onclick="sendMessage()">Envoyer</button>
     </div>
 
     <!-- Zone pour générer des images -->
+     <h2>Vour pouvez générer ici des images avec DALL·E</h2>
+     <p style="max-width:500px; text-align:center; color:gray;">
+        💬 Vous pouvez ici décrire la façon dont vous voulez que votre image soit crée
+    </p>
+
     <div class="line-form" style="margin-top:20px;">
-      <input type="text" id="prompt" placeholder="Prompt pour DALL·E">
+      <input type="text" id="prompt" placeholder="Ex : Un chat en costume de pirate sur un bateau">
       <button onclick="generateImage()">Générer Image</button>
     </div>
 
