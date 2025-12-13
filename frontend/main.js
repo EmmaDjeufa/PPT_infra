@@ -3,7 +3,7 @@ const chatbox = document.getElementById("chatbox");
 const imageBox = document.getElementById("imageBox");
 
 // Base URL pour le backend
-const BASE_URL = ""; // laisse vide si frontend et backend sont dans le même container
+const BASE_URL = "https://chatbot-dalle.onrender.com"; // laisse vide si frontend et backend sont dans le même container
 
 // Fonction pour ajouter un message dans le chat
 function addMessage(text, sender) {

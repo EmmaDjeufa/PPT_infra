@@ -6,7 +6,7 @@
 ## Structure du projet
 
 ```
-chatbot-dalle/
+ppt_infra/
 ├─ app.py           # Backend Flask : API pour chatbot et génération d’images
 ├─ dalle.py         # Intégration API OpenAI DALL·E
 ├─ chat_llm.py      # Intégration API OpenAI GPT
