@@ -2,33 +2,165 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chatbot & DALL·E</title>
+
   <style>
-    body { font-family: Arial; margin: 20px; }
-    input, button { padding: 8px; font-size: 16px; }
-    #chatbox { margin-top: 20px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; }
-    .user { color: blue; }
-    .bot { color: green; }
-    img { max-width: 100%; margin-top: 10px; }
+    /* Box-sizing global pour éviter les dépassements */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial;
+      margin: 0;
+      padding: 20px;
+    }
+
+    input,
+    button {
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    #chatbox {
+      margin-top: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 100%;
+    }
+
+    img {
+      max-width: 100%;
+      margin-top: 10px;
+      display: block;
+    }
+
+    h1 {
+      margin-bottom: 60px; /* triple l'espace sous le titre */
+      text-align: center;
+    }
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 10px; /* padding horizontal pour smartphone */
+    }
+
+    .line-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      flex-wrap: wrap; /* bouton et input passent à la ligne si trop petit */
+    }
+
+    .sections-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .chat-section, .image-section {
+      border: 1px solid #ccc;
+      padding: 15px;
+      flex: 1 1 300px; /* flex-grow, flex-shrink, flex-basis */
+      max-width: 100%;
+      min-width: 280px;
+    }
+
+    .message {
+      display: flex;
+      margin: 5px 0;
+    }
+
+    .user-message {
+      justify-content: flex-end;
+    }
+
+    .user-message .bubble {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+
+    .bot-message {
+      justify-content: flex-start;
+    }
+
+    .bot-message .bubble {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .bubble {
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 1.2em;
+      color: gray;
+      text-align: center;
+    }
+
   </style>
 </head>
+
 <body>
-  <h1>Chatbot & DALL·E</h1>
 
-  <!-- Zone pour chatter -->
-  <div>
-    <input type="text" id="msg" placeholder="Tapez votre message">
-    <button onclick="sendMessage()">Envoyer</button>
-  </div>
-  <div id="chatbox"></div>
+  <div class="form-container">
 
-  <!-- Zone pour générer des images -->
-  <div style="margin-top:20px;">
-    <input type="text" id="prompt" placeholder="Prompt pour DALL·E">
-    <button onclick="generateImage()">Générer Image</button>
+    <h1>Chatbot & DALL·E</h1>
+
+    <div class="sections-container">
+
+      <!-- Chat Section -->
+      <div class="chat-section">
+        <h2>💬 Chat avec le bot</h2>
+        <p style="color:gray;">Posez une question au chatbot et obtenez une réponse instantanée.</p>
+
+        <div id="chatbox"></div>
+
+        <div class="line-form">
+          <input type="text" id="msg" placeholder="Ex : Quel temps fait-il à Paris ?" style="flex:1; min-width:150px;">
+          <button onclick="sendMessage()">Envoyer</button>
+        </div>
+      </div>
+
+      <!-- Image Generation Section -->
+      <div class="image-section">
+        <h2>🎨 Génération d’images avec DALL·E</h2>
+        <p style="color:gray;">Décrivez l’image que vous souhaitez générer.</p>
+
+        <div class="line-form">
+          <input type="text" id="prompt" placeholder="Ex : Un chat en costume de pirate sur un bateau" style="flex:1; min-width:150px;">
+          <button onclick="generateImage()">Générer Image</button>
+        </div>
+
+        <div id="imageBox" style="margin-top:20px;"></div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      Amusez-vous !
+    </div>
+
   </div>
-  <div id="imageBox"></div>
 
   <script src="main.js"></script>
+
 </body>
 </html>

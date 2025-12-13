@@ -33,7 +33,7 @@ def chat():
     data = request.get_json()
     message = data.get("message", "")
 
-    reply = ask_chatbot(message)
+    reply = ask_chat(message)
     return jsonify({"reply": reply})
 
 
@@ -49,9 +49,11 @@ def image():
     data = request.get_json()
     prompt = data.get("prompt", "")
 
-    url = generate_image(prompt)
-    return jsonify({"image_url": url})
+    
+    result = generate_image(prompt)
 
+    # Toujours renvoyer 200, même en cas d'erreur "logique"
+    return jsonify(result), 200
 
 # ---------------------------
 # LANCEMENT LOCAL

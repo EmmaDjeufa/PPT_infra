@@ -2,15 +2,35 @@
 const chatbox = document.getElementById("chatbox");
 const imageBox = document.getElementById("imageBox");
 
-// Base URL pour le backend : si tu changes de port ou Codespaces, modifie ici
-//const BASE_URL = "https://didactic-space-winner-7559qvv9px53rqjr-5000.app.github.dev"; // vide si frontend et backend dans le même container, sinon mettre l'URL complète
-const BASE_URL = "";
+// Base URL pour le backend
+const BASE_URL = ""; // laisse vide si frontend et backend sont dans le même container
+
+// Fonction pour ajouter un message dans le chat
+function addMessage(text, sender) {
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add("message");
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+    bubble.textContent = text;
+
+    if (sender === "user") {
+        msgDiv.classList.add("user-message");  // aligné à droite
+    } else {
+        msgDiv.classList.add("bot-message");   // aligné à gauche
+    }
+
+    msgDiv.appendChild(bubble);
+    chatbox.appendChild(msgDiv);
+    chatbox.scrollTop = chatbox.scrollHeight; // scroll automatique
+}
+
 // Fonction pour envoyer un message au chatbot
 async function sendMessage() {
     const msg = document.getElementById("msg").value;
     if (!msg) return;
 
-    chatbox.innerHTML += `<div class="user">Vous: ${msg}</div>`;
+    addMessage(msg, "user"); // afficher le message utilisateur
     document.getElementById("msg").value = "";
 
     try {
@@ -20,10 +40,9 @@ async function sendMessage() {
             body: JSON.stringify({ message: msg })
         });
         const data = await res.json();
-        chatbox.innerHTML += `<div class="bot">Bot: ${data.reply}</div>`;
-        chatbox.scrollTop = chatbox.scrollHeight;
+        addMessage(data.reply, "bot"); // afficher la réponse du bot
     } catch (e) {
-        chatbox.innerHTML += `<div class="bot">Erreur: ${e}</div>`;
+        addMessage(`Erreur: ${e}`, "bot");
     }
 }
 
@@ -41,6 +60,20 @@ async function generateImage() {
             body: JSON.stringify({ prompt })
         });
         const data = await res.json();
+
+        if (data.error) {
+            // Message clair avec lien de réactivation
+            imageBox.innerHTML = `
+                ❌ <strong>La génération d'images est actuellement désactivée.</strong><br>
+                Veuillez ajouter un moyen de paiement pour réactiver la fonctionnalité.<br><br>
+                <a href="https://platform.openai.com/account/billing" target="_blank" style="color:blue;">
+                    🔗 Réactiver la facturation OpenAI
+                </a>
+            `;
+            return;
+        }
+
+        // Affichage normal de l'image si tout est ok
         imageBox.innerHTML = `<img src="${data.image_url}" alt="Image générée">`;
     } catch (e) {
         imageBox.innerHTML = `Erreur: ${e}`;
