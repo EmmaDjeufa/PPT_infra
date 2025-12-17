@@ -5,7 +5,7 @@ from dalle import generate_image
 
 import os
 
-app = Flask(__name__, static_folder="frontend", static_url_path="/")
+app = Flask(__name__, static_folder="frontend", static_url_path='')
 CORS(app)   # Autorise les appels du frontend (Codespaces utilise des domaines séparés)
 
 
@@ -18,12 +18,16 @@ def serve_frontend():
     """
     Sert le fichier index.html situé dans /frontend/
     """
-    return send_from_directory("frontend", "index.html")
+    return send_from_directory("frontend", "home.html")
 
 
 # ---------------------------
 # ROUTE CHATBOT
 # ---------------------------
+
+@app.route('/index.html')
+def serve_index():
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route("/chat", methods=["POST"])
 def chat():
