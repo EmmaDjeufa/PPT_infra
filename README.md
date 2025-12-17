@@ -1,7 +1,7 @@
 
 # PPT_infra – Chatbot & Générateur d’Images
 
-**PPT_infra** est une application web intégrant un **chatbot intelligent** et un **générateur d’images via DALL·E**, démontrant mes compétences en **cloud computing, architecture scalable et développement full-stack**.
+**PPT_infra** est une application web intégrant un **chatbot intelligent** et un **générateur d’images via DALL·E**, démontrant mes compétences en **cloud computing, architecture scalable et développement full-stack**. Il est accessible à partir de ce lien : https://chatbot-dalle.onrender.com
 
 ## Structure du projet
 
