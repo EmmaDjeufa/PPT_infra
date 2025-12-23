@@ -1,4 +1,4 @@
-```markdown
+
 # PPT_infra – Chatbot & Image Generator
 
 A web app combining a GPT-powered chatbot with DALL·E image generation. Dockerized and cloud-ready.
