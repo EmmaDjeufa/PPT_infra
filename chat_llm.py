@@ -1,4 +1,5 @@
 # chat_llm.py
+# chat_llm.py
 import os
 import requests
 
@@ -17,8 +18,12 @@ def ask_chat(message):
             },
             timeout=15
         )
-        r.raise_for_status()  # lève une exception si code != 200
+        r.raise_for_status()  # déclenche HTTPError si code != 200
         return r.json()["choices"][0]["message"]["content"]
+    except requests.exceptions.HTTPError as e:
+        # Gestion spécifique pour 429
+        if r.status_code == 429:
+            return "⚠️ Trop de requêtes OpenAI. Veuillez réessayer dans quelques secondes."
+        return f"Erreur serveur OpenAI : {e}"
     except requests.exceptions.RequestException as e:
-        # Retourne une erreur propre côté front
         return f"Erreur serveur OpenAI : {e}"
