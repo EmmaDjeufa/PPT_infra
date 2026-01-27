@@ -1,8 +1,10 @@
-#chat_llm.py
+# chat_llm.py
 import os
 import requests
 
 API_KEY = os.getenv("OPENAI_API_KEY")
+if not API_KEY:
+    raise ValueError("OPENAI_API_KEY non défini !")
 
 def ask_chat(message):
     r = requests.post(
@@ -13,4 +15,5 @@ def ask_chat(message):
             "messages": [{"role": "user", "content": message}]
         }
     )
+    r.raise_for_status()  # lève une exception si code != 200
     return r.json()["choices"][0]["message"]["content"]
