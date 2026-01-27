@@ -5,12 +5,11 @@ from dalle import generate_image
 import os
 
 
-# Autoriser toutes les origines pendant le développement
-CORS(app, resources={r"/*": {"origins": "*"}})# Autoriser toutes les origines pendant le développement
-
 # IMPORTANT : pas de static_url_path=''
 app = Flask(__name__, static_folder="frontend")
 CORS(app)
+# Autoriser toutes les origines pendant le développement
+CORS(app, resources={r"/*": {"origins": "*"}})# Autoriser toutes les origines pendant le développement
 
 # Frontend
 @app.route("/")
