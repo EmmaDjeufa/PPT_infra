@@ -1,11 +1,6 @@
 
 # PPT_infra – Chatbot & Image Generator
 
-<div class="nav-buttons">
-      <button onclick="goHome()">🏠 Accueil</button>
-      <button onclick="quitSite()">❌ Quitter</button>
-    </div>
-
 A web app combining a GPT-powered chatbot with DALL·E image generation. Dockerized and cloud-ready.
 
 **Live Demo:** [PPT_infra Web App](https://chatbot-dalle.onrender.com/)

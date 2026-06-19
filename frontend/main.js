@@ -46,16 +46,6 @@ async function sendMessage() {
         addMessage(`Erreur: ${e}`, "bot");
     }
 }
-    function goHome() {
-        window.location.href = "home.html";
-    }
-
-    function quitSite() {
-        window.close();
-        setTimeout(() => {
-            window.location.href = "about:blank";
-        }, 200);
-    }
 
 
     // Fonction pour générer une image avec DALL·E

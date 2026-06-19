@@ -319,36 +319,31 @@ p{
 
 </div>
 
-<script>
+  <script>
 
-/* MENU FIX (IMPORTANT) */
-function toggleMenu(){
-    const menu = document.getElementById("dropdownMenu");
-    menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-}
+  function toggleMenu(){
+      const menu = document.getElementById("dropdownMenu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+  }
 
-/* fermeture si clic dehors */
-document.addEventListener("click", function(e){
-    const menu = document.getElementById("dropdownMenu");
-    const btn = document.querySelector(".menu-btn");
+  document.addEventListener("click", function(e){
+      const menu = document.getElementById("dropdownMenu");
+      const btn = document.querySelector(".menu-btn");
 
-    if(!menu.contains(e.target) && !btn.contains(e.target)){
-        menu.style.display = "none";
-    }
-});
+      if(!menu.contains(e.target) && !btn.contains(e.target)){
+          menu.style.display = "none";
+      }
+  });
 
-/* NAVIGATION */
-function goHome(){
-    window.location.href = "home.html";
-}
+  function goHome(){
+      window.location.href = "/";
+  }
 
-function quitSite(){
-    window.open('', '_self');
-    window.close();
-}
+  function quitSite(){
+      window.location.href = "about:blank";
+  }
 
-</script>
-
+  </script>
 <script src="main.js"></script>
 
 </body>
