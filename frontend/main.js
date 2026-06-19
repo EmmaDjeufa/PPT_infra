@@ -58,36 +58,37 @@ async function sendMessage() {
     }
 
 
-// Fonction pour générer une image avec DALL·E
-async function generateImage() {
-    const prompt = document.getElementById("prompt").value;
-    if (!prompt) return;
+    // Fonction pour générer une image avec DALL·E
+    async function generateImage() {
+        const prompt = document.getElementById("prompt").value;
 
-    imageBox.innerHTML = "Génération en cours...";
+        if (!prompt) return;
 
-    try {
-        const res = await fetch(`${BASE_URL}/image`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt })
-        });
-        const data = await res.json();
+        imageBox.innerHTML = "⏳ Génération en cours...";
 
-        if (data.error) {
-            // Message clair avec lien de réactivation
-            imageBox.innerHTML = `
-                ❌ <strong>La génération d'images est actuellement désactivée.</strong><br>
-                Veuillez ajouter un moyen de paiement pour réactiver la fonctionnalité.<br><br>
-                <a href="https://platform.openai.com/account/billing" target="_blank" style="color:blue;">
-                    🔗 Réactiver la facturation OpenAI
-                </a>
-            `;
-            return;
+        try {
+
+            const res = await fetch(`${BASE_URL}/image`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    prompt: prompt
+                })
+            });
+
+            const data = await res.json();
+
+            if (data.error) {
+                imageBox.innerHTML = `❌ ${data.message}`;
+                return;
+            }
+
+            imageBox.innerHTML =
+                `<img src="${data.image_url}" alt="Image générée">`;
+
+        } catch (e) {
+            imageBox.innerHTML = `❌ Erreur : ${e}`;
         }
-
-        // Affichage normal de l'image si tout est ok
-        imageBox.innerHTML = `<img src="${data.image_url}" alt="Image générée">`;
-    } catch (e) {
-        imageBox.innerHTML = `Erreur: ${e}`;
-    }
 }
